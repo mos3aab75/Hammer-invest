@@ -1,179 +1,354 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Hammer Invest - Egyptian stock market, economy and banking analysis">
-<title>Hammer Invest | الأسواق المالية</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1018">
+<title>Hammer Invest | البورصة المصرية</title>
 <style>
-:root {
-  --bg:#0b1017;
-  --panel:#141d28;
-  --panel2:#1b2836;
-  --text:#f4f7fa;
-  --muted:#aab6c4;
-  --green:#28d394;
-  --red:#f05252;
-  --gold:#f2c14e;
-  --border:#2b3b4d;
+:root{
+ --bg:#090e16;--card:#121b28;--line:#253346;
+ --text:#f1f5fb;--muted:#9aabc0;
+ --green:#20d6a0;--red:#ff6577;--gold:#efbb56;--blue:#6eacff
 }
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Tahoma,sans-serif;
-  line-height:1.7;
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+ font-family:Tahoma,Arial,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit}
+button,a.btn{cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:#0b111bf5;
+ border-bottom:1px solid var(--line)}
+.wrap{max-width:1400px;margin:auto;padding:0 18px}
+nav{display:flex;align-items:center;justify-content:space-between;
+ gap:15px;min-height:72px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:21px;letter-spacing:.5px}
+.logo span{color:var(--gold)}
+nav .links{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:#c0cede}
+nav .links a:hover{color:var(--gold)}
+.hero{padding:28px 0 18px;display:grid;
+ grid-template-columns:1.5fr 1fr;gap:16px}
+.box{background:var(--card);border:1px solid var(--line);
+ border-radius:16px;padding:19px;min-width:0}
+.eyebrow{color:var(--green);font-size:12px;font-weight:bold}
+h1{font-size:clamp(27px,4vw,43px);line-height:1.25;margin:10px 0}
+h2{font-size:22px;margin:0}
+h3{font-size:16px;margin:0}
+p{color:var(--muted)}
+.gold{color:var(--gold)}
+.btn{display:inline-block;padding:10px 14px;border-radius:9px;
+ border:1px solid var(--line);background:#1a293b;color:white;font-size:13px}
+.btn.goldbtn{background:var(--gold);color:#17130b;border-color:var(--gold);font-weight:bold}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.metric{background:var(--card);border:1px solid var(--line);
+ padding:16px;border-radius:13px}
+.label{font-size:12px;color:var(--muted)}
+.value{font-size:24px;font-weight:900;margin:8px 0}
+.note{font-size:11px;color:var(--muted)}
+.section{padding-top:22px;scroll-margin-top:100px}
+.heading{display:flex;justify-content:space-between;align-items:center;
+ gap:12px;flex-wrap:wrap;margin-bottom:13px}
+.marketgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px}
+.chart{height:490px;border:1px solid var(--line);border-radius:12px;
+ overflow:hidden;background:#0b111a}
+.tradingview-widget-container,.tradingview-widget-container__widget{
+ width:100%;height:100%}
+.shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.shortcut{background:#172434;border:1px solid var(--line);
+ padding:13px;border-radius:10px;font-size:13px}
+.shortcut small{display:block;color:var(--muted);margin-top:5px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.toolgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.tool{background:var(--card);border:1px solid var(--line);
+ padding:18px;border-radius:14px}
+.tool p{font-size:13px}
+.icon{font-size:25px;color:var(--gold)}
+label{display:block;font-size:12px;color:#bdcada;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #304157;
+ border-radius:9px;background:#0a121c;color:white}
+textarea{min-height:100px;resize:vertical}
+.result{background:#0a121c;border:1px solid var(--line);
+ border-radius:10px;padding:13px;margin-top:12px;white-space:pre-wrap;
+ overflow-wrap:anywhere;font-size:13px;color:#dce6f2;min-height:60px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:440px;font-size:13px}
+th,td{text-align:right;padding:12px 9px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:500}
+.up{color:var(--green)}.down{color:var(--red)}
+.warning{border-right:3px solid var(--gold);padding-right:12px;font-size:12px}
+footer{border-top:1px solid var(--line);margin-top:35px;padding:22px 0;
+ color:var(--muted);font-size:11px}
+@media(max-width:850px){
+ .hero,.marketgrid,.split{grid-template-columns:1fr}
+ .metrics{grid-template-columns:1fr 1fr}
+ .toolgrid{grid-template-columns:1fr}
+ nav .links{gap:11px}
+ .chart{height:420px}
 }
-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-  padding:16px 5%;
-  background:#0e151e;
-  border-bottom:1px solid var(--border);
-}
-.brand { font-size:25px; font-weight:900; }
-.brand span { color:var(--green); }
-.logo-space {
-  width:90px;
-  height:48px;
-  border:1px dashed #526171;
-  border-radius:8px;
-}
-button, input, select, textarea {
-  font:inherit;
-  border-radius:8px;
-  padding:10px 12px;
-}
-button { cursor:pointer; }
-.lang-btn,.primary {
-  background:var(--green);
-  color:#07140f;
-  border:0;
-  font-weight:bold;
-}
-main { width:min(1200px,92%); margin:25px auto; }
-.hero { padding:12px 0 24px; }
-h1 { font-size:clamp(28px,5vw,44px); line-height:1.3; }
-h1 span,h2 span { color:var(--green); }
-h2 { font-size:23px; margin-top:0; }
-h3 { margin-top:0; }
-.muted { color:var(--muted); }
-.section { margin:30px 0; }
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:15px;
-}
-.card {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:18px;
-  min-width:0;
-}
-.tag {
-  display:inline-block;
-  padding:3px 10px;
-  border-radius:20px;
-  background:#15372c;
-  color:var(--green);
-  font-size:12px;
-}
-.field {
-  width:100%;
-  display:block;
-  margin:8px 0 12px;
-  color:var(--text);
-  background:#0b121a;
-  border:1px solid var(--border);
-}
-.result {
-  margin-top:12px;
-  padding:12px;
-  border-radius:9px;
-  background:#0b121a;
-  color:var(--muted);
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-}
-.primary { width:100%; }
-.chart {
-  width:100%;
-  height:480px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--panel);
-}
-.chart iframe { width:100%; height:100%; border:0; }
-.links {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-.links a {
-  display:block;
-  padding:12px 15px;
-  background:var(--panel2);
-  border:1px solid var(--border);
-  border-radius:9px;
-  color:var(--green);
-  text-decoration:none;
-}
-.notice {
-  border-right:3px solid var(--gold);
-  padding:10px 14px;
-  background:#201e18;
-  color:#f4d78d;
-  font-size:13px;
-}
-footer {
-  border-top:1px solid var(--border);
-  text-align:center;
-  padding:25px 5%;
-  color:var(--muted);
-}
-@media(max-width:600px) {
-  header { padding:14px 4%; }
-  .brand { font-size:21px; }
-  .chart { height:390px; }
+@media(max-width:480px){
+ .wrap{padding:0 11px}
+ nav{padding:12px 0}
+ .logo{font-size:18px}
+ nav .links{font-size:11px}
+ .box{padding:13px}
+ .metric{padding:12px}
+ .value{font-size:19px}
+ .chart{height:390px}
 }
 </style>
 </head>
-
 <body>
 <header>
-  <div class="brand">HAMMER <span>INVEST</span></div>
-  <!-- مساحة فارغة لإضافة اللوجو لاحقًا -->
-  <div class="logo-space" aria-label="مساحة اللوجو"></div>
-  <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">English</button>
+ <nav class="wrap">
+  <a class="logo" href="#home">HAMMER <span>INVEST</span></a>
+  <div class="links">
+   <a href="#market">السوق المصري</a>
+   <a href="#chart">التشارت</a>
+   <a href="#stocks">الأسهم</a>
+   <a href="#ai">مركز الذكاء الاصطناعي</a>
+  </div>
+ </nav>
 </header>
 
-<main>
-  <section class="hero">
-    <span class="tag" data-ar="منصة الأسواق المالية" data-en="Financial Markets Platform">منصة الأسواق المالية</span>
-    <h1 data-ar="افهم السوق قبل ما تاخد قرارك" data-en="Understand the Market Before You Decide">افهم السوق قبل ما تاخد قرارك</h1>
-    <p class="muted" data-ar="البورصة المصرية • الاقتصاد • البنوك • أدوات التحليل الذكي" data-en="Egyptian Exchange • Economy • Banking • Smart Analysis">البورصة المصرية • الاقتصاد • البنوك • أدوات التحليل الذكي</p>
-  </section>
+<main class="wrap" id="home">
+ <section class="hero">
+  <div class="box">
+   <div class="eyebrow">EGYPTIAN STOCK MARKET INTELLIGENCE</div>
+   <h1>افهم السوق.<br><span class="gold">حلّل قبل القرار.</span></h1>
+   <p>منصة لمتابعة البورصة المصرية، وفهم حركة المؤشرات والأسهم،
+   والاستعانة بأدوات التحليل الفني والذكاء الاصطناعي.</p>
+   <div class="actions">
+    <a class="btn goldbtn" href="#market">افتح شاشة السوق ↓</a>
+    <a class="btn" href="#ai">ابدأ التحليل الذكي ✦</a>
+   </div>
+  </div>
+  <div class="box">
+   <div class="heading"><h3>مصادر بيانات السوق</h3><span class="gold">LIVE TOOLS</span></div>
+   <p>افتح الرسوم والبيانات المحدثة لدى مزوديها. توقيت التحديث وتوافر البيانات يعتمدان على المصدر.</p>
+   <div class="actions">
+    <a class="btn" target="_blank" rel="noopener" href="https://www.tradingview.com/markets/stocks-egypt/">TradingView ↗</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://www.investing.com/indices/egx30">Investing.com ↗</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://www.egx.com.eg/">البورصة المصرية ↗</a>
+   </div>
+   <p class="warning">لن نعرض أرقامًا غير موثقة على أنها أسعار لحظية.</p>
+  </div>
+ </section>
 
-  <!-- مركز التحليل الذكي: أبرز جزء في الصفحة -->
-  <section class="section">
-    <h2>🤖 <span data-ar="مركز التحليل الذكي" data-en="AI Analysis Center">مركز التحليل الذكي</span></h2>
-    <p class="muted" data-ar="أدوات مبدئية لدراسة الأسهم والأخبار والمخاطر. ربط الذكاء الاصطناعي الحقيقي سيتم في مرحلة لاحقة." data-en="Preliminary tools for reviewing stocks, news and risk. Live AI integration will be added in a later step.">أدوات مبدئية لدراسة الأسهم والأخبار والمخاطر. ربط الذكاء الاصطناعي الحقيقي سيتم في مرحلة لاحقة.</p>
+ <section class="section" id="market">
+  <div class="heading"><div><h2>لوحة السوق المصري</h2>
+  <div class="note">المؤشرات والبيانات التفصيلية عبر مصادر السوق الخارجية</div></div></div>
+  <div class="metrics">
+   <div class="metric"><div class="label">المؤشر الرئيسي</div><div class="value">EGX30</div>
+    <div class="note">مؤشر الأسهم القيادية</div></div>
+   <div class="metric"><div class="label">مؤشر الشركات الصغيرة والمتوسطة</div><div class="value">EGX70</div>
+    <div class="note">تابع الأداء من المصدر</div></div>
+   <div class="metric"><div class="label">السيولة وأحجام التداول</div><div class="value">EGX</div>
+    <div class="note">تحتاج مصدر بيانات موصولًا</div></div>
+   <div class="metric"><div class="label">الرابحون والخاسرون</div><div class="value">الأسهم</div>
+    <div class="note">القائمة الكاملة عبر مزود البيانات</div></div>
+  </div>
+  <div class="marketgrid">
+   <div class="box" id="chart">
+    <div class="heading"><h3>تشارت EGX30 التفاعلي</h3><span class="note">شموع • فترات • مؤشرات</span></div>
+    <div class="chart">
+     <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+       "autosize": true,
+       "symbol": "EGX:EGX30",
+       "interval": "D",
+       "timezone": "Africa/Cairo",
+       "theme": "dark",
+       "style": "1",
+       "locale": "ar",
+       "withdateranges": true,
+       "hide_side_toolbar": false,
+       "allow_symbol_change": true,
+       "save_image": false,
+       "support_host": "https://www.tradingview.com"
+      }
+      </script>
+     </div>
+    </div>
+    <div class="actions">
+     <a class="btn" target="_blank" rel="noopener" href="https://ar.tradingview.com/symbols/EGX-EGX30/">EGX30 على TradingView ↗</a>
+     <a class="btn" target="_blank" rel="noopener" href="https://ar.tradingview.com/symbols/EGX-EGX30/technicals/">التحليل الفني ↗</a>
+    </div>
+   </div>
+   <div class="box">
+    <div class="heading"><h3>وصول سريع إلى بيانات السوق</h3></div>
+    <div class="shortcuts">
+     <a class="shortcut" target="_blank" rel="noopener" href="https://www.investing.com/indices/egx30">EGX30<small>السعر والأداء</small></a>
+     <a class="shortcut" target="_blank" rel="noopener" href="https://www.investing.com/indices/egx30-technical">المؤشرات الفنية<small>ملخص التحليل</small></a>
+     <a class="shortcut" target="_blank" rel="noopener" href="https://ar.tradingview.com/markets/stocks-egypt/">الأسهم المصرية<small>قائمة الأسهم</small></a>
+     <a class="shortcut" target="_blank" rel="noopener" href="https://www.egx.com.eg/">المصدر الرسمي<small>البورصة المصرية</small></a>
+    </div>
+    <div style="height:18px"></div>
+    <h3>قائمة فحص السوق</h3>
+    <div class="tablewrap">
+     <table><tbody>
+      <tr><td>اتجاه المؤشر</td><td>يومي وأسبوعي</td></tr>
+      <tr><td>السيولة</td><td>مقارنتها بمتوسطها</td></tr>
+      <tr><td>حجم التداول</td><td>تأكيد الحركة السعرية</td></tr>
+      <tr><td>الدعم والمقاومة</td><td>من الرسم الفعلي</td></tr>
+      <tr><td>الأخبار والإفصاحات</td><td>التحقق من المصدر</td></tr>
+     </tbody></table>
+    </div>
+   </div>
+  </div>
+ </section>
 
-    <div class="grid">
-      <div class="card">
-        <h3 data-ar="📊 تحليل سهم" data-en="📊 Stock Analysis">📊 تحليل سهم</h3>
-        <label for="stock" data-ar="اسم السهم أو الرمز" data-en="Stock name or ticker">اسم السهم أو الرمز</label>
-        <input class="field" id="stock" placeholder="مثال: COMI">
-        <label for="trend" data-ar="الاتجاه الذي تلاحظه" data-en="Observed trend">الاتجاه الذي تلاحظه</label>
-        <select class="field" id="trend">
-          <option value="up" data-ar="صاعد" data-en="Uptrend">صاعد</option>
-          <option value="side" data-ar="عرضي" data-en="Sideways">عرضي</option>
-          <option value="down" data-ar="هابط" data-en="Downtrend">هابط<
+ <section class="section" id="stocks">
+  <div class="heading"><div><h2>الأسهم الأكثر ارتفاعًا وانخفاضًا</h2>
+   <div class="note">افتح القوائم المحدثة من TradingView؛ لم يتم إدراج أسعار تجريبية على أنها أسعار حقيقية.</div></div></div>
+  <div class="split">
+   <div class="box"><h3 class="up">الأسهم الأكثر ارتفاعًا ↗</h3>
+    <p>قائمة مرتبة حسب أداء السوق المتاح لدى مزود البيانات.</p>
+    <a class="btn" target="_blank" rel="noopener" href="https://ar.tradingview.com/markets/stocks-egypt/market-movers-gainers/">عرض الرابحين ↗</a></div>
+   <div class="box"><h3 class="down">الأسهم الأكثر انخفاضًا ↘</h3>
+    <p>راجع نسبة التغير وحجم التداول قبل تفسير الحركة.</p>
+    <a class="btn" target="_blank" rel="noopener" href="https://ar.tradingview.com/markets/stocks-egypt/market-movers-losers/">عرض الخاسرين ↗</a></div>
+  </div>
+ </section>
+
+ <section class="section" id="ai">
+  <div class="heading"><div><h2>مركز الذكاء الاصطناعي</h2>
+   <div class="note">أدوات لإعداد طلبات التحليل وإرسالها إلى ChatGPT بعد مراجعتك.</div></div>
+   <span class="gold">AI ANALYSIS</span></div>
+  <div class="toolgrid">
+   <div class="tool"><div class="icon">⌁</div><h3>تحليل سهم فني</h3>
+    <p>الاتجاه، مستويات الدعم والمقاومة، الزخم، والحجم وفق البيانات التي تقدمها.</p>
+    <a class="btn goldbtn" href="#analyzer">افتح الأداة ↓</a></div>
+   <div class="tool"><div class="icon">◈</div><h3>تحليل خبر أو إفصاح</h3>
+    <p>تلخيص الخبر، استخراج الأرقام، وتقييم السيناريوهات والأثر المحتمل.</p>
+    <a class="btn" href="#newsAnalyzer">حلّل خبرًا ↓</a></div>
+   <div class="tool"><div class="icon">⚖</div><h3>مقارنة الأسهم والمخاطر</h3>
+    <p>مقارنة نقاط القوة والضعف والمخاطر والسيناريوهات دون توصية مباشرة.</p>
+    <a class="btn" href="#compare">قارن الأسهم ↓</a></div>
+  </div>
+
+  <div class="box section" id="analyzer">
+   <h3>1. محلل الأسهم</h3>
+   <label for="symbol">اسم السهم أو الرمز</label><input id="symbol" placeholder="مثال: EGX30 أو رمز سهم">
+   <label for="period">الفترة الزمنية</label>
+   <select id="period"><option>يومي</option><option>أسبوعي</option><option>شهري</option><option>قصير الأجل</option></select>
+   <label for="stockData">بيانات السعر والمؤشرات الفنية (الصق ما لديك)</label>
+   <textarea id="stockData" placeholder="السعر، RSI، المتوسطات، حجم التداول، الدعوم والمقاومات..."></textarea>
+   <div class="actions"><button class="btn goldbtn" onclick="stockPrompt()">تجهيز طلب التحليل</button>
+   <button class="btn" onclick="copyResult('stockResult')">نسخ الطلب</button>
+   <button class="btn" onclick="openAI('stockResult')">فتح ChatGPT ↗</button></div>
+   <div class="result" id="stockResult">أدخل الرمز والبيانات المتاحة، ثم اضغط تجهيز طلب التحليل.</div>
+  </div>
+
+  <div class="box section" id="newsAnalyzer">
+   <h3>2. محلل الأخبار والإفصاحات</h3>
+   <label for="news">الصق نص الخبر أو الإفصاح</label>
+   <textarea id="news" placeholder="الصق الخبر هنا مع تاريخه ومصدره إن أمكن..."></textarea>
+   <div class="actions"><button class="btn goldbtn" onclick="newsPrompt()">تجهيز طلب تحليل الخبر</button>
+   <button class="btn" onclick="copyResult('newsResult')">نسخ الطلب</button>
+   <button class="btn" onclick="openAI('newsResult')">فتح ChatGPT ↗</button></div>
+   <div class="result" id="newsResult">الصق الخبر أولًا.</div>
+  </div>
+
+  <div class="box section" id="compare">
+   <h3>3. مقارنة سهمين</h3>
+   <div class="split">
+    <div><label for="stockA">السهم الأول</label><input id="stockA" placeholder="اسم أو رمز السهم الأول"></div>
+    <div><label for="stockB">السهم الثاني</label><input id="stockB" placeholder="اسم أو رمز السهم الثاني"></div>
+   </div>
+   <label for="compareData">بيانات المقارنة (اختياري)</label>
+   <textarea id="compareData" placeholder="الأداء، السيولة، التقييم، نتائج الأعمال، مستويات المخاطر..."></textarea>
+   <div class="actions"><button class="btn goldbtn" onclick="comparePrompt()">إنشاء المقارنة</button>
+   <button class="btn" onclick="copyResult('compareResult')">نسخ الطلب</button>
+   <button class="btn" onclick="openAI('compareResult')">فتح ChatGPT ↗</button></div>
+   <div class="result" id="compareResult">أدخل اسمي السهمين لإنشاء طلب مقارنة.</div>
+  </div>
+ </section>
+
+ <section class="section">
+  <div class="box">
+   <h3>مصادر السوق والأخبار</h3>
+   <div class="actions">
+    <a class="btn" target="_blank" rel="noopener" href="https://www.tradingview.com/">TradingView ↗</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://www.investing.com/">Investing.com ↗</a>
+    <a class="btn" target="_blank" rel="noopener" href="https://www.egx.com.eg/">البورصة المصرية ↗</a>
+   </div>
+   <p class="warning">تنبيه: أدوات الذكاء الاصطناعي هنا تجهّز النصوص فقط وتفتح ChatGPT. لا يوجد اتصال API تلقائي في هذه النسخة. لا ترسل بيانات حسابك أو مفاتيحك السرية.</p>
+  </div>
+ </section>
+</main>
+<footer><div class="wrap">© <span id="year"></span> HAMMER INVEST — منصة معلومات وتحليل تعليمي. ليست توصية شراء أو بيع. تحقّق من الأسعار والإفصاحات من مصادرها الأصلية قبل اتخاذ أي قرار.</div></footer>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function stockPrompt(){
+ const s=document.getElementById('symbol').value.trim();
+ const p=document.getElementById('period').value;
+ const d=document.getElementById('stockData').value.trim();
+ if(!s){document.getElementById('stockResult').textContent='اكتب اسم السهم أو الرمز أولًا.';return}
+ document.getElementById('stockResult').textContent=
+`حلّل السهم/المؤشر ${s} على الإطار ${p}.
+البيانات التي قدمها المستخدم:
+${d||'لا توجد بيانات فنية مرفقة.'}
+
+المطلوب:
+1. اذكر البيانات الناقصة ولا تخترع سعرًا أو مؤشرًا.
+2. حلّل الاتجاه والزخم والحجم والدعوم والمقاومات فقط إذا دعمتها البيانات.
+3. اعرض سيناريو إيجابيًا ومتوازنًا وسلبيًا، وشروط تحقق أو إبطال كل سيناريو.
+4. اشرح المخاطر وما يلزم التحقق منه في مصدر موثوق.
+5. افصل الحقائق عن الافتراضات، ولا تقدم توصية مباشرة بالشراء أو البيع.
+هذا تحليل تعليمي وليس توصية استثمارية.`;
+}
+
+function newsPrompt(){
+ const n=document.getElementById('news').value.trim();
+ if(!n){document.getElementById('newsResult').textContent='الصق الخبر أو الإفصاح أولًا.';return}
+ document.getElementById('newsResult').textContent=
+`حلّل الخبر أو الإفصاح التالي:
+${n}
+
+المطلوب:
+- تلخيص الوقائع والأرقام والتواريخ كما وردت.
+- الفصل بين الحقائق والتفسير والتوقعات.
+- توضيح الأثر المحتمل على الشركة والسهم والسوق، مع أكثر من سيناريو.
+- ذكر المعلومات الناقصة والمصادر الأصلية المطلوب مراجعتها.
+- عدم الجزم باتجاه السعر وعدم تقديم توصية شراء أو بيع.`;
+}
+
+function comparePrompt(){
+ const a=document.getElementById('stockA').value.trim();
+ const b=document.getElementById('stockB').value.trim();
+ const d=document.getElementById('compareData').value.trim();
+ if(!a||!b){document.getElementById('compareResult').textContent='أدخل اسم السهم الأول والثاني.';return}
+ document.getElementById('compareResult').textContent=
+`قارن بين ${a} و${b} بناءً على البيانات المتاحة التالية:
+${d||'لم يرفق المستخدم بيانات؛ وضّح ما يلزم جمعه من مصادر موثوقة.'}
+
+أنشئ جدولًا يقارن الاتجاه، السيولة، الأداء، نتائج الأعمال، المخاطر، والعوامل المؤثرة.
+لا تخترع بيانات مفقودة. اذكر الفروق والقيود والسيناريوهات المحتملة، دون توصية مباشرة بالشراء أو البيع.`;
+}
+
+function copyResult(id){
+ const el=document.getElementById(id),t=el.textContent;
+ if(!t||t.startsWith('أدخل')||t.startsWith('الصق')){alert('جهّز النص أولًا.');return}
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(t).then(()=>alert('تم نسخ النص.')).catch(()=>fallback(t));
+ }else fallback(t);
+}
+function fallback(t){
+ const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);
+ x.select();document.execCommand('copy');x.remove();alert('تم نسخ النص إن كان المتصفح يسمح بذلك.');
+}
+function openAI(id){
+ const t=document.getElementById(id).textContent;
+ if(!t||t.startsWith('أدخل')||t.startsWith('الصق')){alert('جهّز النص أولًا.');return}
+ copyResult(id);
+ window.open('https://chatgpt.com/','_blank','noopener');
+ alert('تم فتح ChatGPT. الصق النص المنسوخ في المحادثة؛ لن يتم إرسال بياناتك تلقائيًا.');
+}
+</script>
+</body>
+</html>
